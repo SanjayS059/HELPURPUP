@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpUrPup - Pet Disease Identification</title>
+</head>
+<body>
+    <h1>HelpUrPup</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Upload Image</button>
+    </form>
+    {% if label %}
+        <h2>Predicted Label: {{ label }}</h2>
+    {% endif %}
+</body>
+</html>
