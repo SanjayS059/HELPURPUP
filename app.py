@@ -21,19 +21,25 @@ def preprocess_image(image):
     return image
 
 # Route for receiving image and processing it
-@app.route('/predict', methods=['POST'])
-def predict():
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part"}), 400
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({"error": "No selected file"}), 400
-    if file:
-        image = Image.open(file)
-        processed_image = preprocess_image(image)
-        prediction = model.predict(processed_image)
-        predicted_label = class_names[np.argmax(prediction)]
-        return jsonify({"prediction": predicted_label})
+def index():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            return redirect(request.url)
+        if file:
+            image = Image.open(file)
+            processed_image = preprocess_image(image)
+            prediction = model.predict(processed_image)
+            predicted_label = class_names[np.argmax(prediction)]
+            return render_template('result.html', label=predicted_label)
+    return render_template('index.html')
+
+# Route for the result page
+@app.route('/result')
+def result():
+    return render_template('result.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
