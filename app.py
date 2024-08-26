@@ -9,7 +9,7 @@ import os
 model = load_model('pet_disease_cnn_rnn_model.h5')
 
 # Class names or labels
-class_names = ['Disease A', 'Disease B', 'Disease C', ...]  # Replace with actual class names
+class_names = ['Bacterial_dermatosis', 'Fungal_infections', 'Healthy', 'Hypersensitivity_allergic_dermatosis']  # Replace with actual class names
 
 app = Flask(__name__)
 
